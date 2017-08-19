@@ -117,10 +117,13 @@
         })
       },
       random() {
-
+        this.randomPlay({
+          list: this.songs
+        })
       },
       ...mapActions([
-        'selectPlay'
+        'selectPlay',
+        'randomPlay'
       ])
     },
     components: {
