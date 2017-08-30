@@ -9,6 +9,7 @@
   import {mapGetters} from 'vuex'
   import {getDiscDetail} from 'api/recommend'
   import {ERR_OK} from 'api/config'
+  import {createSong} from 'common/js/song'
 
   export default {
     computed: {
@@ -33,18 +34,27 @@
     },
     methods: {
       _getDiscDetail() {
-        if (!this.disc.dissid) {
-          this.$router.push('/recommend')
-          return
-        }
+//        if (!this.disc.dissid) {
+//          this.$router.push({
+//            path: '/recommend'
+//          })
+//          return
+//        }
         getDiscDetail(this.disc.dissid).then((res) => {
           if (res.code === ERR_OK) {
             console.log(res.cdlist[0])
-            this.isLoading = false
+            this.songs = this._normalizeSinger(res.cdlist[0].songlist)
           }
-        }).catch((err) => {
-          console.log(123, err)
         })
+      },
+      _normalizeSongs(list) {
+        let ret = []
+        list.forEach((musicData) => {
+          if (musicData.songid && musicData.albumid) {
+            ret.push(createSong(musicData))
+          }
+        })
+        return ret
       }
     },
     components: {
