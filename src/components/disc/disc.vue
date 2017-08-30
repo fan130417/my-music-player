@@ -34,12 +34,12 @@
     },
     methods: {
       _getDiscDetail() {
-//        if (!this.disc.dissid) {
-//          this.$router.push({
-//            path: '/recommend'
-//          })
-//          return
-//        }
+        if (!this.disc.dissid) {
+          this.$router.push({
+            path: '/recommend'
+          })
+          return
+        }
         getDiscDetail(this.disc.dissid).then((res) => {
           if (res.code === ERR_OK) {
             console.log(res.cdlist[0])
