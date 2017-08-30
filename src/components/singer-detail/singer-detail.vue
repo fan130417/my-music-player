@@ -1,6 +1,6 @@
 <template>
   <transition name="slide">
-    <music-list :songs="songs" :title="title" :bg-image="bgImage"></music-list>
+    <music-list :songs="songs" :title="title" :bg-image="bgImage" :isLoading="isLoading"></music-list>
   </transition>
 </template>
 
@@ -14,7 +14,8 @@
   export default {
     data() {
       return {
-        songs: []
+        songs: [],
+        isLoading: true
       }
     },
     computed: {
@@ -40,6 +41,7 @@
         getSingerDetail(this.singer.id).then((res) => {
           if (res.code === ERR_OK) {
             this.songs = this._normalizeSongs(res.data.list)
+            this.isLoading = false
           }
         })
       },

@@ -2,6 +2,7 @@
  * Created by FanJunjie on 2017/7/25.
  */
 import {playMode} from 'common/js/config'
+
 const state = {
   singer: {},
   playing: false,
@@ -9,7 +10,7 @@ const state = {
   playlist: [],
   sequenceList: [],
   mode: playMode.sequence,
-  currentIndex: -1
+  currentIndex: -1,
+  disc: {}
 }
-
 export default state

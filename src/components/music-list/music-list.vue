@@ -20,8 +20,8 @@
       <div class="song-list-wrapper">
         <song-list @select="selectItem" :songs="songs"></song-list>
       </div>
-      <div class="loading-container" v-show="!songs.length">
-        <loading></loading>
+      <div class="loading-container">
+        <loading :isLoading="isLoading" :length="songs.length"></loading>
       </div>
     </scroll>
   </div>
@@ -34,13 +34,13 @@
   import Loading from 'base/loading/loading'
   import {prefixStyle} from 'common/js/dom'
   import {mapActions} from 'vuex'
+  import {playlistMixin} from 'common/js/mixin'
 
   const RESERVE_HEIGHT = 40
-
   const transform = prefixStyle('transform')
   const backdrop = prefixStyle('backdrop-filter')
-
-  export default{
+  export default {
+    mixins: [playlistMixin],
     props: {
       bgImage: {
         type: String,
@@ -53,6 +53,10 @@
       title: {
         type: String,
         default: ''
+      },
+      isLoading: {
+        type: Boolean,
+        default: true
       }
     },
     computed: {
@@ -104,6 +108,11 @@
       }
     },
     methods: {
+      handlePlaylist(playlist) {
+        const bottom = playlist.length > 0 ? '60px' : ''
+        this.$refs.list.$el.style.bottom = bottom
+        this.$refs.list.refresh()
+      },
       back() {
         this.$router.back()
       },

@@ -1,16 +1,29 @@
 <template>
-  <div class="loading">
-    <img src="./loading.gif" width="24" height="24">
-    <p class="desc">{{title}}</p>
+  <div>
+    <div class="loading" v-show="isLoading">
+      <img src="./loading.gif" width="24" height="24">
+      <p class="desc">{{title}}</p>
+    </div>
+    <div class="loading" v-show="!isLoading&&length===0">
+      <p class="desc">暂无数据</p>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  export default{
+  export default {
     props: {
       title: {
         type: String,
         default: '正在载入...'
+      },
+      isLoading: {
+        type: Boolean,
+        default: true
+      },
+      length: {
+        type: Number,
+        default: 0
       }
     }
   }

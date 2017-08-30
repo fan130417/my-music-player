@@ -19,8 +19,8 @@
         </li>
       </ul>
     </div>
-    <div class="loading-container" v-show="!data.length">
-      <loading></loading>
+    <div class="loading-container">
+      <loading :isLoading="isLoading" :length="data.length"></loading>
     </div>
     <div class="list-fixed" v-show="fixedTitle" ref="fixed">
       <h1 class="fixed-title">{{fixedTitle}}</h1>
@@ -35,7 +35,6 @@
 
   const ANCHOR_HEIGHT = 18
   const TITLE_HEIGHT = 30
-
   export default {
     created() {
       this.touch = {}
@@ -54,6 +53,10 @@
       data: {
         type: Array,
         default: []
+      },
+      isLoading: {
+        type: Boolean,
+        default: true
       }
     },
     computed: {
@@ -88,6 +91,9 @@
         let anchorIndex = this.touch.anchorIndex + delta
         this._scrollTo(anchorIndex)
 //        this.currentIndex = anchorIndex
+      },
+      refresh() {
+        this.$refs.listview.refresh()
       },
       scroll(pos) {
         this.scrollY = pos.y
