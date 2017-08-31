@@ -14,7 +14,7 @@
           </ul>
         </li>
       </ul>
-      <div class="loading-wrapper">
+      <div class="loading-container">
         <loading :isLoading="isLoading" :length="topList.length"></loading>
       </div>
     </scroll>
@@ -56,7 +56,7 @@
       _getTopList() {
         getTopList().then((res) => {
           if (res.code === ERR_OK) {
-            console.log(res)
+            console.log(res.data.topList)
             this.topList = res.data.topList
             this.isLoading = false
           }

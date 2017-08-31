@@ -246,6 +246,7 @@
           if (this.playing) {
             this.currentLyric.play()
           }
+          this.playingLyric = ''
         }).catch(() => {
           this.currentLyric = null
           this.playingLyric = ''
@@ -254,12 +255,8 @@
       },
       handleLyric({lineNum, txt}) {
         this.currentLineNum = lineNum
-        if (lineNum > 5) {
-          let lineEl = this.$refs.lyricLine[lineNum - 5]
-          this.$refs.lyricList.scrollToElement(lineEl, 1000)
-        } else {
-          this.$refs.lyricList.scrollToElement(0, 0, 1000)
-        }
+        let lineEl = lineNum > 5 ? this.$refs.lyricLine[lineNum - 5] : this.$refs.lyricLine[lineNum - lineNum]
+        this.$refs.lyricList.scrollToElement(lineEl, 1000)
         this.playingLyric = txt
       },
       middleTouchStart(e) {
@@ -281,8 +278,6 @@
         const left = this.currentShow === 'cd' ? 0 : -window.innerWidth
         const offsetWidth = Math.min(0, Math.max(-window.innerWidth, left + deltaX))
         this.touch.percent = Math.abs(offsetWidth / window.innerWidth)
-        console.log(deltaY, deltaX)
-        console.log(left, deltaX)
         this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px, 0, 0)`
         this.$refs.lyricList.$el.style[transitionDuration] = `0ms`
         this.$refs.middleL.style.opacity = 1 - this.touch.percent
@@ -419,7 +414,7 @@
         setTimeout(() => {
           this.$refs.audio.play()
           this.getLyric()
-        }, 1000)
+        }, 800)
       },
       playing(newPlaying) {
         const audio = this.$refs.audio
@@ -557,7 +552,8 @@
               color: $color-text-l
               font-size: $font-size-medium
               &.current
-                color: $color-text
+                color: $color-theme
+                font-size: $font-size-medium-m
 
       .bottom
         position: absolute
