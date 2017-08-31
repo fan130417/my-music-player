@@ -31,6 +31,9 @@
                 <p ref="lyricLine" :class="{'current':currentLineNum===index}" class="text"
                    v-for="(line,index) in currentLyric.lines">{{line.txt}}</p>
               </div>
+              <div v-if="!currentLyric">
+                <p class="text">未找到歌词</p>
+              </div>
             </div>
           </scroll>
         </div>

@@ -9,6 +9,7 @@
   import {mapGetters} from 'vuex'
   import {getDiscDetail} from 'api/recommend'
   import {ERR_OK} from 'api/config'
+  import {createSong} from 'common/js/song'
 
   export default {
     computed: {
@@ -39,12 +40,19 @@
         }
         getDiscDetail(this.disc.dissid).then((res) => {
           if (res.code === ERR_OK) {
-            console.log(res.cdlist[0])
+            this.songs = this._normalizeSongs(res.cdlist[0].songlist)
             this.isLoading = false
           }
-        }).catch((err) => {
-          console.log(123, err)
         })
+      },
+      _normalizeSongs(list) {
+        let ret = []
+        list.forEach((musicData) => {
+          if (musicData.songid && musicData.albumid) {
+            ret.push(createSong(musicData))
+          }
+        })
+        return ret
       }
     },
     components: {
