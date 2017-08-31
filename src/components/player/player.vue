@@ -31,9 +31,6 @@
                 <p ref="lyricLine" :class="{'current':currentLineNum===index}" class="text"
                    v-for="(line,index) in currentLyric.lines">{{line.txt}}</p>
               </div>
-              <div v-if="!currentLyric">
-                <p class="text">未找到歌词</p>
-              </div>
             </div>
           </scroll>
         </div>
@@ -107,7 +104,7 @@
   const transform = prefixStyle('transform')
   const transitionDuration = prefixStyle('transitionDuration')
 
-  export default{
+  export default {
     data() {
       return {
         songReady: false,
@@ -177,6 +174,9 @@
             this.togglePlaying()
           }
         }
+        if (this.currentLyric) {
+          this.$refs.lyricList.scrollTo(0, 0, 1000)
+        }
         this.songReady = false
       },
       end() {
@@ -191,6 +191,7 @@
         this.$refs.audio.play()
         if (this.currentLyric) {
           this.currentLyric.seek(0)
+          this.$refs.lyricList.scrollTo(0, 0, 1000)
         }
       },
       next() {
@@ -208,6 +209,9 @@
           if (!this.playing) {
             this.togglePlaying()
           }
+        }
+        if (this.currentLyric) {
+          this.$refs.lyricList.scrollTo(0, 0, 1000)
         }
         this.songReady = false
       },
@@ -277,6 +281,8 @@
         const left = this.currentShow === 'cd' ? 0 : -window.innerWidth
         const offsetWidth = Math.min(0, Math.max(-window.innerWidth, left + deltaX))
         this.touch.percent = Math.abs(offsetWidth / window.innerWidth)
+        console.log(deltaY, deltaX)
+        console.log(left, deltaX)
         this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px, 0, 0)`
         this.$refs.lyricList.$el.style[transitionDuration] = `0ms`
         this.$refs.middleL.style.opacity = 1 - this.touch.percent
@@ -304,6 +310,7 @@
             opacity = 0
           }
         }
+        this.touch = {}
         const time = 300
         this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px,0,0)`
         this.$refs.lyricList.$el.style[transitionDuration] = `${time}ms`
