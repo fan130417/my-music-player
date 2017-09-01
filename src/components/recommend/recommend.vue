@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="loading-container">
-        <loading :isLoading="isLoading" :length="discList.length"></loading>
+        <loading :isLoading="isLoading" :length="discList.length" noResult="暂无推荐歌单"></loading>
       </div>
     </scroll>
     <router-view></router-view>

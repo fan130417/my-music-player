@@ -21,7 +21,7 @@
         <song-list @select="selectItem" :songs="songs" :rank="rank"></song-list>
       </div>
       <div class="loading-container">
-        <loading :isLoading="isLoading" :length="songs.length"></loading>
+        <loading :isLoading="isLoading" :length="songs.length" noResult="暂无歌曲"></loading>
       </div>
     </scroll>
   </div>

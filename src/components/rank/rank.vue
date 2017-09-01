@@ -15,7 +15,7 @@
         </li>
       </ul>
       <div class="loading-container">
-        <loading :isLoading="isLoading" :length="topList.length"></loading>
+        <loading :isLoading="isLoading" :length="topList.length" noResult="暂无排行榜单"></loading>
       </div>
     </scroll>
     <router-view></router-view>
@@ -56,7 +56,6 @@
       _getTopList() {
         getTopList().then((res) => {
           if (res.code === ERR_OK) {
-            console.log(res.data.topList)
             this.topList = res.data.topList
             this.isLoading = false
           }

@@ -5,12 +5,14 @@
       <p class="desc">{{title}}</p>
     </div>
     <div class="loading" v-show="!isLoading&&length===0">
-      <p class="desc">暂无数据</p>
+      <no-result :title="noResult"></no-result>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import NoResult from 'base/no-result/no-result'
+
   export default {
     props: {
       title: {
@@ -24,7 +26,14 @@
       length: {
         type: Number,
         default: 0
+      },
+      noResult: {
+        type: String,
+        default: '暂无数据'
       }
+    },
+    components: {
+      NoResult
     }
   }
 </script>
