@@ -17,9 +17,9 @@
             <li :key="item.id" ref="listItem" class="item" v-for="(item,index) in sequenceList"
                 @click="selectItem(item,index)">
               <i class="current" :class="getCurrentIcon(item)"></i>
-              <span class="text">{{index}}{{item.name}}</span>
-              <span class="like">
-                <i class="icon-not-favorite"></i>
+              <span class="text">{{item.name}}</span>
+              <span class="like" @click.stop="toggleFavorite(item)">
+                <i :class="getFavoriteIcon(item)"></i>
               </span>
               <span class="delete" @click.stop="deleteOne(item)">
                 <i class="icon-delete"></i>
@@ -125,7 +125,10 @@
         }
         this.scrollToCurrent(newSong)
       },
-      sequenceList() {
+      sequenceList(newList, oldList) {
+        if (newList.length < oldList.length) {
+          return
+        }
         this.showList = false
         setTimeout(() => {
           this.showList = true
