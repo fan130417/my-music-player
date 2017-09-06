@@ -39,6 +39,8 @@
       </div>
       <confirm ref="confirm" @confirm="confirmClear" text="是否清空播放列表" confirmBtnText="清空"></confirm>
       <add-song ref="addSong"></add-song>
+      <top-tip ref="topTip">
+      </top-tip>
     </div>
   </transition>
 </template>
@@ -49,6 +51,7 @@
   import Scroll from 'base/scroll/scroll'
   import AddSong from 'components/add-song/add-song'
   import Confirm from 'base/confirm/confirm'
+  import TopTip from 'base/top-tip/top-tip'
   import {playerMixin} from 'common/js/mixin'
 
   export default {
@@ -141,7 +144,8 @@
     components: {
       Scroll,
       Confirm,
-      AddSong
+      AddSong,
+      TopTip
     }
   }
 </script>
@@ -247,4 +251,15 @@
         background: $color-background
         font-size: $font-size-medium-x
         color: $color-text-l
+    .tip-title
+      text-align: center
+      padding: 18px 0
+      font-size: 0
+      .icon-ok
+        font-size: $font-size-medium
+        color: $color-theme
+        margin-right: 4px
+      .text
+        font-size: $font-size-medium
+        color: $color-text
 </style>

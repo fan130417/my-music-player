@@ -38,7 +38,6 @@
       _getMusicList() {
         getMusicList(this.toplist.id).then((res) => {
           if (res.code === ERR_OK) {
-            console.log(res)
             this.songs = this._normalizeSongs(res.songlist)
             this.isLoading = false
           }

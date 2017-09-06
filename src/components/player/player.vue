@@ -88,6 +88,12 @@
     <playlist ref="playlist"></playlist>
     <audio ref="audio" :src="currentSong.url" @play="ready" @error="error" @timeupdate="updateTime"
            @ended="end"></audio>
+    <top-tip ref="topTip">
+      <div class="tip-title">
+        <i class="icon-ok" :class="iconMode"></i>
+        <span class="text">{{textMode}}</span>
+      </div>
+    </top-tip>
   </div>
 </template>
 
@@ -97,6 +103,7 @@
   import animations from 'create-keyframe-animation'
   import ProgressBar from 'base/progress-bar/progress-bar'
   import Playlist from 'components/playlist/playlist'
+  import TopTip from 'base/top-tip/top-tip'
   import Scroll from 'base/scroll/scroll'
   import ProgressCircle from 'base/progress-circle/progress-circle'
   import {prefixStyle} from 'common/js/dom'
@@ -419,7 +426,8 @@
       ProgressBar,
       ProgressCircle,
       Scroll,
-      Playlist
+      Playlist,
+      TopTip
     }
   }
 </script>
@@ -669,6 +677,17 @@
           left: 0
           top: 0
 
+    .tip-title
+      text-align: center
+      padding: 18px 0
+      font-size: 0
+      .icon-ok
+        font-size: $font-size-medium
+        color: $color-theme
+        margin-right: 4px
+      .text
+        font-size: $font-size-medium
+        color: $color-text
   @keyframes rotate
     0%
       transform: rotate(0)

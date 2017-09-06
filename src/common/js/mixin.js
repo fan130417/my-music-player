@@ -34,6 +34,9 @@ export const playerMixin = {
     iconMode() {
       return this.mode === playMode.sequence ? 'icon-sequence' : this.mode === playMode.loop ? 'icon-loop' : 'icon-random'
     },
+    textMode() {
+      return this.mode === playMode.sequence ? '列表循环' : this.mode === playMode.loop ? '单曲循环' : '随机播放'
+    },
     ...mapGetters([
       'sequenceList',
       'currentSong',
@@ -54,6 +57,7 @@ export const playerMixin = {
       }
       this.resetCurrentIndex(list)
       this.setPlaylist(list)
+      this.$refs.topTip.show()
     },
     getFavoriteIcon(song) {
       if (this.isFavorite(song)) {
