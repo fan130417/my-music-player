@@ -85,7 +85,7 @@
         this.currentIndex = index
       },
       back() {
-        this.$router.back()
+        this.$router.push({path: '/recommend'})
       },
       selectSong(song) {
         this.insertSong(new Song(song))
